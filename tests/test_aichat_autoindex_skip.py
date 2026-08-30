@@ -53,6 +53,9 @@ def _invoke(runner, argv):
         # Click treats a group-level ``--`` as ending only the group's
         # options, so this still renders search help.
         ["--", "search", "--help"],
+        # An unknown token after a group-level ``--`` is routed to the
+        # implicit menu command, including ``--help``.
+        ["--", "--help"],
         ["trim-in-place", "--help"],
         ["port", "--help"],
         ["resolve", "--help"],

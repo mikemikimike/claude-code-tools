@@ -199,6 +199,12 @@ def main(ctx, claude_home, codex_home):
         if arg == ctx.invoked_subcommand:
             cli_args = cli_args[i:]
             break
+    if ctx.invoked_subcommand == 'menu' and 'menu' not in cli_args:
+        # SessionReferenceGroup inserts the implicit ``menu`` command after
+        # parsing, so it is absent from sys.argv.  In ``aichat -- --help``,
+        # the help flag is consequently hidden by the group separator.
+        if '--' in cli_args:
+            cli_args = cli_args[cli_args.index('--') + 1:]
     if '--' in cli_args:
         cli_args = cli_args[:cli_args.index('--')]
     help_mode = any(arg in cli_args for arg in ('-h', '--help'))
